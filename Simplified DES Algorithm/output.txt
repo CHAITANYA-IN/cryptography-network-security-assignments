@@ -1,0 +1,102 @@
+Original Key:  1110001100
+Permutated Key(P10):  1011001010
+Shifting L and R to left by 1:  0110110100
+Key 1 using P8:  11001100
+Shifting L and R to left by 2:  1010110010
+Key 2 using P8:  11000101
+Key Generated
+----------------------------------------
+Plain Text:  10001000
+Initial Permutation:  00010010
+Left Half:  0001
+Right Half:  0010
+Expanding right half:  00010100
+Xoring the expanded right half:  11011000
+dec2bin[sBox[bin2dec[s[0] + s[3]]][bin2dec[s[1] + s[2]]]]
+dec2bin[sBox[bin2dec[1 + 1]][bin2dec[1 + 0]]]
+dec2bin[sBox[3][2]]
+dec2bin[3]
+Substitution Box 0:  11
+dec2bin[sBox[bin2dec[s[4] + s[7]]][bin2dec[s[5] + s[6]]]]
+dec2bin[sBox[bin2dec[1 + 0]][bin2dec[0 + 0]]]
+dec2bin[sBox[2][0]]
+dec2bin[3]
+Substitution Box 1:  11
+Concatenating:  1111
+P4 permutation:  1111
+Xoring the left part:  1110
+Round 1:  11100010
+Switching L and R:  00101110
+Left Half:  0010
+Right Half:  1110
+Expanding right half:  01111101
+Xoring the expanded right half:  10111000
+dec2bin[sBox[bin2dec[s[0] + s[3]]][bin2dec[s[1] + s[2]]]]
+dec2bin[sBox[bin2dec[1 + 1]][bin2dec[0 + 1]]]
+dec2bin[sBox[3][1]]
+dec2bin[1]
+Substitution Box 0:  01
+dec2bin[sBox[bin2dec[s[4] + s[7]]][bin2dec[s[5] + s[6]]]]
+dec2bin[sBox[bin2dec[1 + 0]][bin2dec[0 + 0]]]
+dec2bin[sBox[2][0]]
+dec2bin[3]
+Substitution Box 1:  11
+Concatenating:  0111
+P4 permutation:  1110
+Xoring the left part:  1100
+Round 2:  11001110
+Cipher generated: 01011101
+Encryption Successful
+----------------------------------------
+
+
+Cipher Text:  '01011101' 
+
+--------------------------------------------------
+Cipher Text:  01011101
+Initial Permutation:  11001110
+Left Half:  1100
+Right Half:  1110
+Expanding right half:  01111101
+Xoring the expanded right half:  10111000
+dec2bin[sBox[bin2dec[s[0] + s[3]]][bin2dec[s[1] + s[2]]]]
+dec2bin[sBox[bin2dec[1 + 1]][bin2dec[0 + 1]]]
+dec2bin[sBox[3][1]]
+dec2bin[1]
+Substitution Box 0:  01
+dec2bin[sBox[bin2dec[s[4] + s[7]]][bin2dec[s[5] + s[6]]]]
+dec2bin[sBox[bin2dec[1 + 0]][bin2dec[0 + 0]]]
+dec2bin[sBox[2][0]]
+dec2bin[3]
+Substitution Box 1:  11
+Concatenating:  0111
+P4 permutation:  1110
+Xoring the left part:  0010
+Round 1:  00101110
+Switching L and R:  11100010
+Left Half:  1110
+Right Half:  0010
+Expanding right half:  00010100
+Xoring the expanded right half:  11011000
+dec2bin[sBox[bin2dec[s[0] + s[3]]][bin2dec[s[1] + s[2]]]]
+dec2bin[sBox[bin2dec[1 + 1]][bin2dec[1 + 0]]]
+dec2bin[sBox[3][2]]
+dec2bin[3]
+Substitution Box 0:  11
+dec2bin[sBox[bin2dec[s[4] + s[7]]][bin2dec[s[5] + s[6]]]]
+dec2bin[sBox[bin2dec[1 + 0]][bin2dec[0 + 0]]]
+dec2bin[sBox[2][0]]
+dec2bin[3]
+Substitution Box 1:  11
+Concatenating:  1111
+P4 permutation:  1111
+Xoring the left part:  0001
+Round 2:  00010010
+PlainText generated: 10001000
+Decryption Successful
+----------------------------------------
+
+
+Plain Text:  '10001000' 
+
+--------------------------------------------------
