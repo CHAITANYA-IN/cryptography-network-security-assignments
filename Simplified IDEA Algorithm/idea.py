@@ -1,10 +1,14 @@
 import sys
 
+OUTPUT_PATH = 'output.txt'
+INPUT_PATH = 'input.txt'
+
 stdout = sys.stdout
 stdin = sys.stdin
-sys.stdout = open('output.txt', 'w')
-sys.stdin = open('input.txt')
+sys.stdout = open(OUTPUT_PATH, 'w')
+sys.stdin = open(INPUT_PATH)
 
+verbose = ('-v' in sys.argv[2:]) or ('--verbose' in sys.argv[2:])
 KEY_SIZE = 32
 ENC_KEYS = []
 DEC_KEYS = []
@@ -46,7 +50,7 @@ def keyGenerator(key):
   ENC_KEYS += [(key >> i & 0xF) for i in shifts]
   key = 0xFFFFFFFF & (key << 6) | ((key & 0xFC000000) >> (KEY_SIZE - 6))
   ENC_KEYS += [(key >> i & 0xF) for i in shifts[:4]]
-  print('ENC_KEYS = ', ENC_KEYS)
+  if(verbose): print('ENC_KEYS = ', ENC_KEYS)
   for i, j in DEC_PER:
     if(j == 'M'):
       val = MUL_INV[ENC_KEYS[i]]
@@ -55,20 +59,20 @@ def keyGenerator(key):
     if(j == 'N'):
       val = ENC_KEYS[i]
     DEC_KEYS.append(val)
-  print('DEC_KEYS = ', DEC_KEYS)
+  if(verbose): print('DEC_KEYS = ', DEC_KEYS)
   return True
 
 def divideText(text):
   global TEXT
   TEXT = [(text >> i & 0xF) for i in shifts[4:]]
-  print('Dividing Text = ', TEXT)
+  if(verbose): print('Dividing Text = ', TEXT)
   return True
 
 def mergeText():
   global TEXT
   X1, X2, X3, X4 = TEXT
   S1, S2, S3, S4 = shifts[4:]
-  print('Text Ready = ', X1 << S1 | X2 << S2 | X3 << S3 | X4 << S4)
+  if(verbose): print('Text Ready = ', X1 << S1 | X2 << S2 | X3 << S3 | X4 << S4)
   return X1 << S1 | X2 << S2 | X3 << S3 | X4 << S4
 
 def round(num, decrypt=False):
@@ -77,7 +81,7 @@ def round(num, decrypt=False):
   else:
     keys = ENC_KEYS
   if(num < 1 or num > 4):
-    print("Invalid round number")
+    if(verbose): print("Invalid round number")
     return False
   global TEXT
   X1, X2, X3, X4 = TEXT
@@ -96,25 +100,25 @@ def round(num, decrypt=False):
   step12 = step3 ^ step9
   step13 = step2 ^ step10
   step14 = step4 ^ step10
-  print("Step 1", binary(step1), sep="\t")
-  print("Step 2", binary(step2), sep="\t")
-  print("Step 3", binary(step3), sep="\t")
-  print("Step 4", binary(step4), sep="\t")
-  print("Step 5", binary(step5), sep="\t")
-  print("Step 6", binary(step6), sep="\t")
-  print("Step 7", binary(step7), sep="\t")
-  print("Step 8", binary(step8), sep="\t")
-  print("Step 9", binary(step9), sep="\t")
-  print("Step 10", binary(step10), sep="\t")
-  print("Step 11", binary(step11), sep="\t")
-  print("Step 12", binary(step12), sep="\t")
-  print("Step 13", binary(step13), sep="\t")
-  print("Step 14", binary(step14), sep="\t")
+  if(verbose): print("Step 1", binary(step1), sep="\t")
+  if(verbose): print("Step 2", binary(step2), sep="\t")
+  if(verbose): print("Step 3", binary(step3), sep="\t")
+  if(verbose): print("Step 4", binary(step4), sep="\t")
+  if(verbose): print("Step 5", binary(step5), sep="\t")
+  if(verbose): print("Step 6", binary(step6), sep="\t")
+  if(verbose): print("Step 7", binary(step7), sep="\t")
+  if(verbose): print("Step 8", binary(step8), sep="\t")
+  if(verbose): print("Step 9", binary(step9), sep="\t")
+  if(verbose): print("Step 10", binary(step10), sep="\t")
+  if(verbose): print("Step 11", binary(step11), sep="\t")
+  if(verbose): print("Step 12", binary(step12), sep="\t")
+  if(verbose): print("Step 13", binary(step13), sep="\t")
+  if(verbose): print("Step 14", binary(step14), sep="\t")
   if(decrypt):
     TEXT = [step11, step13, step12, step14]
   else:
     TEXT = [step11, step13, step12, step14]
-  print(f'Round {num} = ', TEXT)
+  if(verbose): print(f'Round {num} = ', TEXT)
   return True
 
 def finalRound(decrypt=False):
@@ -129,12 +133,12 @@ def finalRound(decrypt=False):
   step2 = addMod(X2, K2)
   step3 = addMod(X3, K3)
   step4 = mulMod(X4, K4)
-  print(f'{X1} * {K1} % 17 = {step1}')
-  print(f'{X2} + {K2} % 16 = {step2}')
-  print(f'{X3} + {K3} % 16 = {step3}')
-  print(f'{X4} * {K4} % 17 = {step4}')
+  if(verbose): print(f'{X1} * {K1} % 17 = {step1}')
+  if(verbose): print(f'{X2} + {K2} % 16 = {step2}')
+  if(verbose): print(f'{X3} + {K3} % 16 = {step3}')
+  if(verbose): print(f'{X4} * {K4} % 17 = {step4}')
   TEXT = [step1, step2, step3, step4]
-  print('Final Round = ', TEXT)
+  if(verbose): print('Final Round = ', TEXT)
   return True
 
 def ideAlgo(key, text, decrypt=False):
